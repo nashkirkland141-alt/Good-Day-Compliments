@@ -1,75 +1,38 @@
 
-const button = document.querySelector("#download-button");
-const complimentText = document.querySelector("#compliment");
-const statusText = document.querySelector("#status");
-
 let compliments = [];
 
+const complimentDisplay = document.getElementById("compliment");
+const button = document.getElementById("newCompliment");
+
 async function loadCompliments() {
-  const response = await fetch("./compliments.txt");
+    try {
+        const response = await fetch("./compliments.txt");
 
-  if (!response.ok) {
-    throw new Error("Could not load compliments.txt");
-  }
+        if (!response.ok) {
+            throw new Error("Could not load compliments");
+        }
 
-  const fileText = await response.text();
+        const text = await response.text();
 
-  compliments = fileText
-    .split(/\r?\n/)
-    .map(line => line.trim())
-    .filter(Boolean);
+        compliments = text
+            .split(/\r?\n/)
+            .filter(line => line.trim() !== "");
 
-  if (!compliments.length) {
-    throw new Error("The compliments file is empty.");
-  }
+    } catch (error) {
+        complimentDisplay.textContent =
+            "Couldn't load the compliments. Try refreshing the page.";
+    }
 }
 
-function downloadCompliment(text) {
-  const blob = new Blob(
-    [text + "\n"],
-    { type: "text/plain;charset=utf-8" }
-  );
-
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement("a");
-
-  link.href = url;
-  link.download = "compliment.txt";
-
-  document.body.appendChild(link);
-  link.click();
-  link.remove();
-
-  setTimeout(() => URL.revokeObjectURL(url), 1000);
-}
-
-button.addEventListener("click", async () => {
-  button.disabled = true;
-  button.textContent = "Loading...";
-  statusText.textContent = "Finding a compliment...";
-
-  try {
-    if (!compliments.length) {
-      await loadCompliments();
+button.addEventListener("click", () => {
+    if (compliments.length === 0) {
+        complimentDisplay.textContent = "Loading compliments...";
+        return;
     }
 
-    const chosen =
-      compliments[Math.floor(Math.random() * compliments.length)];
+    const randomIndex = Math.floor(Math.random() * compliments.length);
 
-    complimentText.textContent = chosen;
-    downloadCompliment(chosen);
-
-    statusText.textContent =
-      `Downloaded! ${compliments.length.toLocaleString()} compliments available.`;
-
-  } catch (error) {
-    console.error(error);
-
-    statusText.textContent =
-      "Could not load compliments.txt. Make sure all four files are in the same folder.";
-
-  } finally {
-    button.disabled = false;
-    button.textContent = "Download Compliment";
-  }
+    complimentDisplay.textContent = compliments[randomIndex];
 });
+
+loadCompliments();
