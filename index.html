@@ -1,37 +1,96 @@
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#10111b">
-  <title>Compliment Downloader</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compliment Generator</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f5f4f0;
+            color: #292929;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        main {
+            width: 100%;
+            max-width: 480px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 27px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #777;
+            font-size: 14px;
+            margin-bottom: 35px;
+        }
+
+        #compliment {
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            line-height: 1.5;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        button {
+            background: #292929;
+            color: white;
+            border: none;
+            padding: 13px 25px;
+            font-size: 14px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #444;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        footer {
+            margin-top: 35px;
+            color: #999;
+            font-size: 12px;
+        }
+    </style>
 </head>
+
 <body>
-  <main class="page">
-    <section class="card">
-      <p class="eyebrow">A little boost for your day</p>
-      <h1>Compliment Downloader</h1>
-      <p class="intro">Get a random compliment. Keep it. You deserve it.</p>
+    <main>
+        <h1>A little compliment</h1>
+        <p class="subtitle">Everyone deserves to hear something nice.</p>
 
-      <div class="compliment-box" aria-live="polite">
-        <p id="compliment">Your next compliment is one click away.</p>
-      </div>
+        <div id="compliment">
+            Press the button. You deserve it.
+        </div>
 
-      <button id="download-button" type="button">
-        Download Compliment
-      </button>
+        <button id="newCompliment">Give me a compliment</button>
 
-      <p id="status" class="status" role="status">
-        Ready when you are.
-      </p>
+        <footer>Made to make someone's day a little better.</footer>
+    </main>
 
-      <p class="footer">
-        1,000 reasons to give yourself a little credit.
-      </p>
-    </section>
-  </main>
+    <script src="script.js"></script>
 </body>
 </html>
